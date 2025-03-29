@@ -1,4 +1,5 @@
 ﻿using System;
+using Operaciones;
 
 namespace Exercise1
 {
@@ -106,19 +107,185 @@ namespace Exercise2
     }
 }
 
+namespace Functions
+{
+    class Function
+    {
+        public void Saludar()
+        {
+            Console.WriteLine("Ingrese un nombre: ");
+            var name = Console.ReadLine();
+            
+            Console.Clear();
+            Console.WriteLine($"Hola! {name}");
+        }
+    }
+}
+
+namespace Calcular
+{
+    class CalcularAreaCirculo 
+    {
+        public double Area(double radius)
+        {
+            return Math.PI * Math.Pow(radius, 2);
+        }
+    }
+}
+
+namespace Operaciones
+{
+    class Operar()
+    {
+        public int Sum(int x, int y)
+        {
+            return x + y;
+        }
+
+        public double Sum(double x, double y)
+        {
+            return x + y;
+        }
+
+        public int Sum(int x, int y, int z)
+        {
+            return x + y + z;
+        }
+    }
+}
+
+namespace Mensaje
+{
+    class MostrarMensaje
+    {
+        public void Mostrar(string texto)
+        {
+            Console.WriteLine($"Texto: {texto}");
+        }
+
+        public void Mostrar(int numero)
+        {
+            Console.WriteLine($"Numero: {numero}");
+        }
+
+        public void Mostrar(string texto, int numero)
+        {
+            Console.WriteLine($"Texto: {texto} \n Numero: {numero}");
+        }
+    }
+}
+
+namespace Calculadora
+{
+    class Calcular
+    {
+        public int Multiplicar(int x, int y)
+        {
+            return x * y;
+        }
+
+        public double Multiplicar(double x, double y)
+        {
+            return x * y;
+        }
+        
+        public int Multiplicar(int x, int y, int z)
+        {
+            return x * y * z;
+        }
+    }  
+}
+
 namespace Main
 {
     class Program
     {
+        /*
+        static void Saludar(string nombre)
+        {
+            Console.WriteLine($"Hola, {nombre}");
+        }
+        */
+        
+        /*
+        static int Suma(int a, int b)
+        {
+            return a + b;
+        }
+        */
+        
+        /*
+        static void MostrarMensaje(string mensaje = "Sin mensaje")
+        {
+            Console.WriteLine(mensaje);
+        }
+        */
+        
         static void Main(string[] args)
         {
+            Calculadora.Calcular calc = new Calculadora.Calcular();
+            Console.WriteLine($"Multiplicación de enteros: {calc.Multiplicar(10, 20)}");
+            Console.WriteLine($"Multiplicacion de decimales: {calc.Multiplicar(10.5, 20.5)}");
+            Console.WriteLine($"Multiplicacion de enteros: {calc.Multiplicar(10, 20, 30)}");
+            
             /*
+            Mensaje.MostrarMensaje mensaje = new Mensaje.MostrarMensaje();
+            mensaje.Mostrar("Hola");
+            mensaje.Mostrar(10);
+            mensaje.Mostrar("Hola", 10);
+            /*
+        
+            Operaciones.Operar op = new Operaciones.Operar();
+            Console.WriteLine(op.Sum(10, 20, 30));
+            Console.WriteLine(op.Sum(5,3));
+            Console.WriteLine(op.Sum(2.5, 3.5));
+            /*
+             
             Exercise1.PersonAgeChecker example = new Exercise1.PersonAgeChecker();
             example.Question();
             */
             
+            /*
             Exercise2.Calculate example2 = new Exercise2.Calculate();
             example2.ResolveCalculate();
+            */
+            
+            /*
+            Functions.Function saludo = new Functions.Function();
+            saludo.Saludar();
+            */
+            
+            //Saludar("Miguel");
+            
+            
+            /*
+            int resultado = Suma(10, 20);
+            Console.WriteLine($"El resultado es {resultado}");
+            */
+            
+            /*
+            MostrarMensaje();
+            MostrarMensaje("Hola Mundo!");
+            */
+            
+            /*
+            Calcular.CalcularAreaCirculo newCalculo = new Calcular.CalcularAreaCirculo();
+            double radio;
+            bool esValido;
+
+            do
+            {
+                Console.WriteLine("Ingrese el radio: ");
+                esValido = double.TryParse(Console.ReadLine(), out radio) && radio > 0;
+                if (!esValido)
+                {
+                    Console.WriteLine("Ingrese un numero valido!");
+                }
+            } while (!esValido);
+            
+            double area = newCalculo.Area(radio);
+            Console.WriteLine($"Area: {area:F2}");
+            */
         }
     }
 }
