@@ -1,6 +1,8 @@
 ﻿using System;
-using Inventario;
-using Operaciones;
+using Empresa;
+using System.Linq;
+using System.Collections.Generic;
+using MisEstudiantes;
 
 namespace Exercise1
 {
@@ -349,6 +351,232 @@ namespace CuentaBancaria
     }
 }
 
+namespace Herencia
+{
+    class Persona
+    {
+        public string Nombre { get; set; }
+
+        public void Saludar()
+        {
+            Console.WriteLine($"Hola, {Nombre}");
+        }
+    }
+
+    class Estudiante : Persona
+    {
+        public string Curso { get; set; }
+        
+        public void Estudiar()
+        {
+            Console.WriteLine($"{Nombre} está estudiando {Curso}");
+        }
+    }
+}
+
+namespace Polimorfismo
+{
+    interface IMensaje
+    {
+        void EnviarMensaje(string mensaje);
+    }
+
+    class Email : IMensaje
+    {
+        public void EnviarMensaje(string mensaje)
+        {
+            Console.WriteLine($"Enviando email: {mensaje}");
+        }
+    }
+
+    class SMS : IMensaje
+    {
+        public void EnviarMensaje(string mensaje)
+        {
+            Console.WriteLine($"Enviando SMS: {mensaje}");
+        }
+    }
+    
+    class Animal
+    {
+        public virtual void HacerSonido()
+        {
+            Console.WriteLine("Sonido de animal");
+        }
+    }
+
+    class Perro : Animal
+    {
+        public override void HacerSonido()
+        {
+            Console.WriteLine("Guau!");
+        }
+    }
+
+    class Gato: Animal
+    {
+        public override void HacerSonido()
+        {
+            Console.WriteLine("Miau!");
+        }
+    }
+}
+
+namespace Exercise3 
+{
+    class Animal
+    {
+        
+        public string Nombre { get; set; }
+        public Animal(string nombre)
+        {
+            Nombre = nombre;
+        }
+
+        public virtual void HacerSonido()
+        {
+            Console.WriteLine("El animal hace un sonido");
+        }
+    }
+
+    class Perro : Animal
+    {
+        public Perro(string nombre) : base(nombre) {}
+
+        public override void HacerSonido()
+        {
+            Console.WriteLine($"{Nombre} hace un guau");
+        }
+    }
+
+    class Gato : Animal
+    {
+        public Gato(string nombre) : base(nombre) {}
+
+        public override void HacerSonido()
+        {
+            Console.WriteLine($"{Nombre} hace un miau");
+        }
+    }
+}
+
+namespace MiVehiculo
+{
+    class Vehiculo
+    {
+        public string Marca { get; set; }
+
+        public Vehiculo(string marca)
+        {
+            Marca = marca;
+        }
+        public virtual void Acelerar()
+        {
+            Console.WriteLine("El vehiculo está Acelerando");
+        }
+    }
+
+    class Moto : Vehiculo
+    {
+        public Moto(string marca) : base(marca) {}
+
+        public override void Acelerar()
+        {
+            Console.WriteLine($"La moto {Marca} acelera rápidamente");
+        }
+    }
+
+    class Auto : Vehiculo
+    {
+        public Auto(string marca) : base(marca) {}
+
+        public override void Acelerar()
+        {
+            Console.WriteLine($"El auto {Marca} acelera lentamente");
+        }
+    }
+}
+
+namespace Empresa
+{
+    class Empleado
+    {
+        public string Nombre { get; set; }
+        public double Salario { get; set; }
+        public Empleado(string nombre, double salario)
+        {
+            Nombre = nombre;
+            Salario = salario;
+        }
+        
+        public virtual double CalcularSalario()
+        {
+            return Salario;
+        }
+        
+        public virtual void MostrarInformacion()
+        {
+            Console.WriteLine($"Nombre: {Nombre} \n Salario: {Salario:C}");
+        }
+    }
+
+    class Gerente : Empleado
+    {
+        public double Bono { get; set; }
+
+        public Gerente(string nombre, double salario, double bono) : base(nombre, salario)
+        {
+            Bono = bono;
+        }
+        
+        public override double CalcularSalario()
+        {
+            return Salario + Bono;
+        }
+    }
+
+    class Desarrollador : Empleado
+    {
+        public int ProyectosCompletados { get; set; }
+        public double ExtraPorProyecto { get; set; }
+
+        public Desarrollador(string nombre, double salario, int proyectosCompletados, double extraPorProyecto) : base(
+            nombre, salario)
+        {
+            ProyectosCompletados = proyectosCompletados;
+            ExtraPorProyecto = extraPorProyecto;
+        }
+
+        public override double CalcularSalario()
+        {
+            return Salario + (ProyectosCompletados * ExtraPorProyecto);
+        }
+    }
+
+    class Interno : Empleado
+    {
+        public Interno(string nombre, double salario) : base(nombre, salario) {}
+    }
+}
+
+namespace MisProductos
+{
+    class Producto
+    {
+        public string Nombre { get; set; }
+        public double Precio { get; set; }
+    }
+}
+
+namespace MisEstudiantes
+{
+    class Estudiante
+    {
+        public string Nombre { get; set; }
+        public int Nota { get; set; }
+    }
+}
+
 namespace Main
 {
     class Program
@@ -412,15 +640,126 @@ namespace Main
             Console.WriteLine(mensaje);
         }
         */
-        
+
         static void Main(string[] args)
         {
+            /*
+            List<MisEstudiantes.Estudiante> estudiantes = new List<Estudiante>
+            {
+                new Estudiante {Nombre = "Juan", Nota = 85},
+                new Estudiante {Nombre = "Pedro", Nota = 90},
+                new Estudiante {Nombre = "Maria", Nota = 75},
+                new Estudiante {Nombre = "Jose", Nota = 95},
+                new Estudiante {Nombre = "Ana", Nota = 60},
+            };
+            
+            var estdiantesDestacados = estudiantes.Where(e => e.Nota >= 80);
+            Console.WriteLine("Estudiantes con nota mayor a 80");
+            foreach (var e in estdiantesDestacados)
+            {
+                Console.WriteLine($"Nombre: {e.Nombre} - Nota: {e.Nota}");
+            }
+            
+            double promedio = estudiantes.Average(e => e.Nota);
+            Console.WriteLine($"Promedio de notas: {promedio:F2}");
+            
+            var mejorEstudiante = estudiantes.OrderByDescending(e => e.Nota).First();
+            Console.WriteLine($"Mejor estudiante: {mejorEstudiante.Nombre} - Nota: {mejorEstudiante.Nota}");
+            */
+            /*
+            List<MisProductos.Producto> items = new List<Producto>
+            {
+                new Producto {Nombre = "Laptop", Precio = 1000},
+                new Producto {Nombre = "Mouse", Precio = 50},
+                new Producto {Nombre = "Teclado", Precio = 80},
+                new Producto {Nombre = "Monitor", Precio = 300},
+            };
+
+            var productosCaros = items.Where(p => p.Precio > 100);
+            foreach (var v in productosCaros)
+            {
+                Console.WriteLine($"Producto: {v.Nombre} - Precio: {v.Precio:C}");
+            }
+            */
+            /*
+            List<string> nombres = new List<string>{"Juan", "Pedro", "Maria"};
+            nombres.Add("Jose");
+            nombres.Remove("Juan");
+            Console.WriteLine($"Total nombres: {nombres.Count}");
+            foreach (var item in nombres)
+            {
+                Console.WriteLine(item);
+            }
+
+            Dictionary<int, string> diccionario = new Dictionary<int, string>
+            {
+                {1, "Juan"},
+                {2, "Ana"},
+                {3, "Pedro"}
+            };
+
+            diccionario[4] = "Lucía";
+            if (diccionario.ContainsKey(2))
+            {
+                Console.WriteLine($"El valor de la clave 2 es: {diccionario[2]}");
+            }
+
+            List<int> numeros = new List<int> {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+            var pares = numeros.Where(n => n % 2 == 0);
+            Console.WriteLine("Pares: " + string.Join(", ", pares));
+            /*
+            List<Empresa.Empleado> empleados = new List<Empresa.Empleado>
+            {
+                new Empresa.Gerente("Juan", 10000, 1000),
+                new Empresa.Desarrollador("Pedro", 15000, 5, 100),
+                new Empresa.Interno("Maria", 12000)
+            };
+
+            foreach (var item in empleados)
+            {
+                item.MostrarInformacion();
+            }
+            /*
+            MiVehiculo.Vehiculo vehiculo = new MiVehiculo.Vehiculo("Ford");
+            List<MiVehiculo.Vehiculo> vehiculos = new List<MiVehiculo.Vehiculo>
+            {
+                new MiVehiculo.Moto("Honda"),
+                new MiVehiculo.Moto("Yamaha"),
+                new MiVehiculo.Auto("Ford"),
+                new MiVehiculo.Auto("Toyota")
+            };
+
+            foreach (var v in vehiculos)
+            {
+                Console.WriteLine($"Vehículo: {v.Marca}");
+                v.Acelerar();
+            }
+            */
+            /*
+            Exercise3.Perro perro = new Exercise3.Perro("Perro");
+            Exercise3.Gato gato = new Exercise3.Gato("Gato");
+            perro.HacerSonido();
+            gato.HacerSonido();
+            */
+            /*
+            Polimorfismo.IMensaje mensaje = new Email();
+            Polimorfismo.IMensaje mensaje2 = new SMS();
+
+            mensaje.EnviarMensaje("Hola por Email");
+            mensaje2.EnviarMensaje("Hola por SMS");
+            */
+            /*
+            Herencia.Persona persona = new Herencia.Persona();
+            Herencia.Estudiante estudiante = new Herencia.Estudiante { Nombre = "Miguel", Curso = "Ingenieria de Software"};
+            estudiante.Saludar();
+            estudiante.Estudiar();
+            /*
             CuentaBancaria.CuentaNueva cuenta = new CuentaBancaria.CuentaNueva("Miguel", 1000);
             cuenta.MostrarInformacion();
             cuenta.Depositar(500);
             cuenta.Retirar(300);
             cuenta.Retirar(20000);
-            
+
             cuenta.MostrarInformacion();
             /*
             Banco.CuentaBancaria cuenta = new Banco.CuentaBancaria("Miguel", 1000);
@@ -436,11 +775,11 @@ namespace Main
             Console.WriteLine("\nAñadiendo 10 unidades al producto 2");
             inventario.ActualizarStock(ref cantidadProducto2, 10);
             Console.WriteLine($"Nuevo stock del producto 2: {cantidadProducto2}");
-            
+
             Console.WriteLine("\nVendiendo 5 unidades del producto 2");
             inventario.ActualizarStock(ref cantidadProducto2, -5);
             Console.WriteLine($"Nuevo stock del producto 2: {cantidadProducto2}");
-            
+
             inventario.ObtenerResumen(out int totalProductos, out double valorTotal);
             Console.WriteLine($"Total de productos: {totalProductos} \nValor total: {valorTotal:F2}");
             */
@@ -540,7 +879,6 @@ namespace Main
             Functions.Function saludo = new Functions.Function();
             saludo.Saludar();
             */
-            //Saludar("Miguel");
             /*
             int resultado = Suma(10, 20);
             Console.WriteLine($"El resultado es {resultado}");
